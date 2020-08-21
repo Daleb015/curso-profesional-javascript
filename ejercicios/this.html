@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <a href="/ejercicios/index.html">Go back</a>
+    <script>
+        // en global scope
+        console.log(`this: ${this}`)
+        // this en el scope de una funcion
+        function whatIsThis() {
+            return this
+        }
+
+        console.log(`this: ${whatIsThis()}`)
+
+        function whatIsThisStrict() {
+            'use strict'
+            return this
+        }
+
+        console.log(`this: ${whatIsThisStrict()}`)
+
+        const person = {
+            name: 'Daniel',
+            saludar: function () {
+                console.log(`hola soy ${this.name}`)
+            }
+        }
+
+        person.saludar()
+
+        const accion = person.saludar
+
+        accion()
+
+
+        function Person (name) {
+            this.name = name
+        }
+
+        Person.prototype.saludar = function (){
+            console.log(`hola soy ${this.name}`)
+        }
+
+        const daniel = new Person('Daniel')
+        daniel.saludar()
+
+    </script>
+</body>
+
+</html>
