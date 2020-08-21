@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .cuadro-centro {
+            background-image: linear-gradient(#21c08b, #8f57fd);
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0px 30px;
+            min-height: calc(100vh - 200px);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="cuadro-centro">
+        <h2>Envio sms</h2>
+            <input type="text" name="telefono" id="telefono">
+            <input type="text" name="mensaje" id="mensaje">
+            <button id="boton">enviar</button>
+        </div>
+
+    <script>
+        const boton = document.getElementById('boton')
+        const telefono = document.getElementById('telefono')
+        const mensaje = document.getElementById('mensaje')
+
+        boton.onclick = function () {
+            fetch('http://smstaxis.api.infobip.com/sms/2/text/single', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Basic U21zLlRheGlzOlRheC4yODkzNCo='
+            },
+            body: JSON.stringify({
+                from: 'InfoSMS TaxisLibres',
+                to: `57${telefono.value}`,
+                text: mensaje.value
+            })
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            console.log(data.messages[0].status.id)
+        })
+        }
+
+    </script>
+</body>
+
+</html>
